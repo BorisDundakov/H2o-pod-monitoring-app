@@ -1,0 +1,50 @@
+#1. Creating namespace to run the appilcation
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: waveapp-namespace
+spec:
+    finalizers:
+      - kubernetes
+
+#2. Creating the deployment (running environment) of the application
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec: 
+      containers:
+        - name: h2o-wave-container
+          image: borisdundakov/wave-heroku:1.0.0
+          ports:
+            - containerPort: 10101
+          command:
+            - /bin/bash
+            - -c
+            - |
+              cd ai_app/
+              wave run app.py
+      
+---
+#3. Assigning a port to the application 
+apiVersion: v1
+kind: Service
+metadata:
+  name: port-balancer
+spec:
+  type: LoadBalancer # Exposes public IP of the application
+  ports:
+    - name: h2o-wave-port
+      port: 10101
+      targetPort: 10101
+  selector:
+    app: my-app
