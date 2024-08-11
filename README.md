@@ -7,14 +7,11 @@ Monitor your pod performance in a Kubernetes cluster using the h2o-wave-app libr
 
 ## How to run
 
-
-
 ### Prerequisites:
 
 
 - minikube installed and configured
 - minikube running
-
 
 
 ### Steps:
@@ -31,11 +28,6 @@ git clone https://github.com/BorisDundakov/H2o-pod-monitoring-app.git
 ```
 kubectl apply -f deployment/deployment.yml
 ```
-
-
-## Future maintenance
-
-Bear in mind that the h2o wave application needs specific version of the libraries specified in the 'requirements.txt' file located inside 'h2o_wave_app' folder. Dependabot github security updates will keep your application secure, as long as it is regularly updated in your own github repository. The libraries inside 'requirements.txt' are dependent of each other, so changing the version of one library may break the entire application. Therefore it is recommended to update the libraries to their latest version and test by building the image locally first. Feel free to change the image inside your deployment to one that satisfies the purpose and needs of your own project.
 
 
 ## References
